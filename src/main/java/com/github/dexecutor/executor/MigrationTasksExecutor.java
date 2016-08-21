@@ -1,0 +1,137 @@
+package com.github.dexecutor.executor;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.github.dexecutor.executor.DefaultDependentTasksExecutor;
+import com.github.dexecutor.executor.DependentTasksExecutor;
+import com.github.dexecutor.executor.TaskProvider;
+import com.github.dexecutor.executor.TaskProvider.Task;
+import com.github.dexecutor.executor.DependentTasksExecutor.ExecutionBehavior;
+import com.github.dexecutor.oxm.MigrationTask;
+import com.github.dexecutor.oxm.MigrationTasks;
+import com.github.dexecutor.parser.CompositeTableNameProvider;
+import com.github.dexecutor.parser.SQLTableNameProvider;
+import com.github.dexecutor.parser.TableNameProvider;
+import com.github.dexecutor.support.Lists;
+
+public class MigrationTasksExecutor {
+
+	private static final Logger logger = LoggerFactory.getLogger(MigrationTasksExecutor.class);
+
+	private final DependentTasksExecutor<String> executor;
+	private final Map<String, List<String>> tableToTasksMap = new LinkedHashMap<String, List<String>>();
+	private TableNameProvider tableNameProvider;
+
+	public MigrationTasksExecutor(final MigrationTasks tasks, final ExecutorService executorService) {
+		this.executor = new DefaultDependentTasksExecutor<String>(executorService, newTaskProvider(tasks));
+		this.tableNameProvider = newTableNameProvider();
+		buildGraph(tasks);		
+	}
+ 
+	private TableNameProvider newTableNameProvider() {
+		List<TableNameProvider> newProviders = new ArrayList<>();
+		newProviders.add(new SQLTableNameProvider());
+		return new CompositeTableNameProvider(newProviders);
+	}
+
+	private void buildGraph(MigrationTasks tasks) {
+		for (MigrationTask migrationTask : tasks.getTasks()) {
+			List<String> tables = tables(migrationTask);
+			constructTaskNode(migrationTask, tables);
+			recordTaskDetails(migrationTask, tables);
+		}
+	}
+
+	private void constructTaskNode(MigrationTask migrationTask, List<String> tables) {
+		List<String> taskIds = dependentTaskIds(migrationTask, tables);
+		if (isDependentTask(taskIds)) {
+			processDependentTasks(taskIds, migrationTask.getTaskId());
+		} else {
+			this.executor.addIndependent(migrationTask.getTaskId());
+		}
+	}
+
+	private List<String> dependentTaskIds(MigrationTask migrationTask, List<String> tables) {
+		List<String> result = new ArrayList<>();
+
+		for (String table : tables) {
+			if (this.tableToTasksMap.containsKey(table)) {
+				String lastTask = Lists.getLast(this.tableToTasksMap.get(table));
+				if (lastTask != null && !lastTask.isEmpty()) {
+					result.add(lastTask);					
+				}
+			}
+		}
+		return result;
+	}
+
+	private boolean isDependentTask(final List<String> taskIds) {
+		return !taskIds.isEmpty();
+	}
+
+	private void processDependentTasks(final List<String> dependentTaskIds, final String currentTaskId) {
+		for (String dependentTaskId : dependentTaskIds) {
+			this.executor.addDependency(dependentTaskId, currentTaskId);
+		}
+	}
+
+	private void recordTaskDetails(final MigrationTask migrationTask, final List<String> tables) {
+		for (String table : tables) {
+			List<String> tasks = processedTasks(table);
+			tasks.add(migrationTask.getTaskId());
+			this.tableToTasksMap.put(table, tasks);			
+		}		
+	}
+
+	private List<String> processedTasks(final String table) {
+		if (this.tableToTasksMap.containsKey(table)) {
+			return this.tableToTasksMap.get(table);
+		} else {
+			return new ArrayList<>();			
+		}
+	}
+
+	private List<String> tables(final MigrationTask migrationTask) {
+		return this.tableNameProvider.provideTableNames(migrationTask.getTask());
+	}
+
+	public void execute(boolean stopOnError) {
+		this.executor.execute(ExecutionBehavior.RETRY_ONCE_TERMINATING);
+	}
+
+	private TaskProvider<String> newTaskProvider(MigrationTasks tasks) {
+		return new DataMigrationTaskProvider(tasks);
+	}
+
+	private class DataMigrationTaskProvider implements TaskProvider<String> {
+
+		public DataMigrationTaskProvider(MigrationTasks tasks) {
+
+		}
+
+		@Override
+		public TaskProvider.Task provid(String id) {
+			return new DummyTask(id);
+		}		
+	}
+
+	private static class DummyTask extends Task {
+		private String taskId;
+
+		public DummyTask(String id) {
+			this.taskId = id;
+		}
+
+		@Override
+		public void execute() {
+			logger.info("Executing Task {}", taskId);
+		}		
+	}
+}

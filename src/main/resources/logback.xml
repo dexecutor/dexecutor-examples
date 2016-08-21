@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				%d{HH:mm:ss.SSS} [%thread] %-5level %class{36}.%M %L - %msg%n 
+			</Pattern>
+		</layout>
+	</appender>
+	
+	<logger name="java.util.concurrent" level="info"
+		additivity="false">
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<logger name="ch.qos.logback" level="error"
+		additivity="false">
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<logger name="com.github" level="debug"
+		additivity="false">
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<root level="error">
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+</configuration>
