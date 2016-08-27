@@ -14,14 +14,12 @@ public class CompositeTableNameProvider implements TableNameProvider {
 		this.providers = newProviders;
 	}
 
-	@Override
 	public boolean canProvideTableNames(String instructions) {
 		return true;
 	}
 
-	@Override
 	public List<String> provideTableNames(String instructions) {
-		List<String> tableNames = new ArrayList<>();
+		List<String> tableNames = new ArrayList<String>();
 		String[] partitioned = instructions.split(REGEX_SEMI_COLON);
 		for (String instruction : partitioned) {
 			if (isInstructionValid(instruction)) {
@@ -35,7 +33,7 @@ public class CompositeTableNameProvider implements TableNameProvider {
 	}
 
 	private List<String> tableNames(String instruction) {
-		List<String> tableNames = new ArrayList<>();
+		List<String> tableNames = new ArrayList<String>();
 		for (TableNameProvider provider : this.providers) {
 			if (provider.canProvideTableNames(instruction)) {
 				return provider.provideTableNames(instruction);				

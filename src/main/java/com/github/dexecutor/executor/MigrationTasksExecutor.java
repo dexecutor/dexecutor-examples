@@ -36,7 +36,7 @@ public class MigrationTasksExecutor {
 	}
  
 	private TableNameProvider newTableNameProvider() {
-		List<TableNameProvider> newProviders = new ArrayList<>();
+		List<TableNameProvider> newProviders = new ArrayList<TableNameProvider>();
 		newProviders.add(new SQLTableNameProvider());
 		return new CompositeTableNameProvider(newProviders);
 	}
@@ -59,7 +59,7 @@ public class MigrationTasksExecutor {
 	}
 
 	private List<String> dependentTaskIds(MigrationTask migrationTask, List<String> tables) {
-		List<String> result = new ArrayList<>();
+		List<String> result = new ArrayList<String>();
 
 		for (String table : tables) {
 			if (this.tableToTasksMap.containsKey(table)) {
@@ -94,7 +94,7 @@ public class MigrationTasksExecutor {
 		if (this.tableToTasksMap.containsKey(table)) {
 			return this.tableToTasksMap.get(table);
 		} else {
-			return new ArrayList<>();			
+			return new ArrayList<String>();			
 		}
 	}
 
@@ -116,7 +116,6 @@ public class MigrationTasksExecutor {
 
 		}
 
-		@Override
 		public TaskProvider.Task provid(String id) {
 			return new DummyTask(id);
 		}		
