@@ -2,60 +2,60 @@
 <migration-tasks>
 	<task module="baseApp" taskId="base-1" version="1.0.2" release="1">
 		<task>select * from table1, 
-		table2, table3;
+		table2, table3 where xyx= 1;
 		delete  from table1
 	</task>
 	</task>
 	<task module="baseApp" taskId="base-2" version="1.0.2" release="1">
-		<task>select * from table1, table3, table4</task>
+		<task>select * from table1, table3, table4 where xyx= 1;</task>
 	</task>
 
 	<task module="baseApp" taskId="base-3" version="1.0.2" release="1">
-		<task>select * from table5, table6</task>
+		<task>select * from table5, table6 where xyx= 1;</task>
 	</task>
 	<task module="baseApp" taskId="base-4" version="1.0.2" release="1">
-		<task>select * from table1000, table1111</task>
+		<task>select * from table1000, table1111 where xyx= 1;</task>
 	</task>
 
 	<task module="app1" taskId="app1-1" version="1.0.2" release="2">
-		<task>select * from table4, table8</task>
+		<task>select * from table4, table8 where xyx= 1;</task>
 	</task>
 	<task module="app1" taskId="app1-2" version="1.0.2" release="2">
-		<task>select * from table8, table9</task>
+		<task>select * from table8, table9 where xyx= 1;</task>
 	</task>
 
 	<task module="app1" taskId="app1-3" version="1.0.2" release="2">
-		<task>select * from table10, table19</task>
+		<task>select * from table10, table19 where xyx= 1;</task>
 	</task>
 	<task module="app1" taskId="app1-4" version="1.0.2" release="2">
-		<task>select * from table11, table17</task>
+		<task>select * from table11, table17 where xyx= 1;</task>
 	</task>
 
 	<task module="app2" taskId="app2-1" version="1.0.2" release="3">
-		<task>select * from table6, table7</task>
+		<task>select * from table6, table7 where xyx= 1</task>
 	</task>
 	<task module="app2" taskId="app2-2" version="1.0.2" release="3">
-		<task>select * from table17, table18</task>
+		<task>select * from table17, table18  where xyx= 1;</task>
 	</task>
 
 	<task module="app2" taskId="app2-3" version="1.0.2" release="3">
-		<task>select * from table15, table20</task>
+		<task>select * from table15, table20 where xyx= 1</task>
 	</task>
 	<task module="app2" taskId="app2-4" version="1.0.2" release="3">
-		<task>select * from table7, table11</task>
+		<task>select * from table7, table11 where xyx= 1</task>
 	</task>
 
 	<task module="app3" taskId="app3-1" version="1.0.2" release="3">
-		<task>select * from table112, table116</task>
+		<task>select * from table112, table116 where xyx= 1;</task>
 	</task>
 	<task module="app3" taskId="app3-2" version="1.0.2" release="3">
-		<task>select * from table2, table111</task>
+		<task>select * from table2, table111 where xyx= 1;</task>
 	</task>
 
 	<task module="app3" taskId="app3-3" version="1.0.2" release="3">
-		<task>select * from table100, table111</task>
+		<task>select * from table100, table111 where xyx= 1;</task>
 	</task>
 	<task module="app3" taskId="app3-4" version="1.0.2" release="3">
-		<task>select * from table10, table11</task>
+		<task>select * from table10, table11 where xyx= 1;</task>
 	</task>
 </migration-tasks>

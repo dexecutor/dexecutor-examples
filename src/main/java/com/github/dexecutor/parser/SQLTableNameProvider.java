@@ -14,7 +14,7 @@ public class SQLTableNameProvider implements TableNameProvider {
 	private static final Logger logger = LoggerFactory.getLogger(SQLTableNameProvider.class);
 
 	public boolean canProvideTableNames(String instructions) {
-		return isSQLStatement(instructions);
+		return isSQLStatement(instructions.toUpperCase());
 	}
 
 	private boolean isSQLStatement(String instructions) {
