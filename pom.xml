@@ -13,7 +13,7 @@
 		<dependency>
 			<groupId>com.github.mnadeem</groupId>
 			<artifactId>sql-table-name-parser</artifactId>
-			<version>0.0.1</version>
+			<version>0.0.2</version>
 		</dependency>
 	</dependencies>
 </project>
