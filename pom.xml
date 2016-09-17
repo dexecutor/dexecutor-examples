@@ -7,13 +7,19 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.dexecutor</groupId>
-			<artifactId>dependent-tasks-executor</artifactId>
-			<version>0.0.2</version>
+			<artifactId>dexecutor-core</artifactId>
+			<version>1.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.mnadeem</groupId>
 			<artifactId>sql-table-name-parser</artifactId>
 			<version>0.0.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.7</version>
 		</dependency>
 	</dependencies>
 </project>

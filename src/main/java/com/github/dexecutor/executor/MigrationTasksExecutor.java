@@ -9,11 +9,12 @@ import java.util.concurrent.ExecutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.dexecutor.executor.DefaultDependentTasksExecutor;
-import com.github.dexecutor.executor.DependentTasksExecutor;
-import com.github.dexecutor.executor.TaskProvider;
-import com.github.dexecutor.executor.TaskProvider.Task;
-import com.github.dexecutor.executor.DependentTasksExecutor.ExecutionBehavior;
+import com.github.dexecutor.core.DefaultDependentTasksExecutor;
+import com.github.dexecutor.core.DefaultExecutionEngine;
+import com.github.dexecutor.core.DependentTasksExecutor;
+import com.github.dexecutor.core.DependentTasksExecutor.ExecutionBehavior;
+import com.github.dexecutor.core.task.Task;
+import com.github.dexecutor.core.task.TaskProvider;
 import com.github.dexecutor.oxm.MigrationTask;
 import com.github.dexecutor.oxm.MigrationTasks;
 import com.github.dexecutor.parser.CompositeTableNameProvider;
@@ -30,7 +31,7 @@ public class MigrationTasksExecutor {
 	private TableNameProvider tableNameProvider;
 
 	public MigrationTasksExecutor(final MigrationTasks tasks, final ExecutorService executorService) {
-		this.executor = new DefaultDependentTasksExecutor<String>(executorService, newTaskProvider(tasks));
+		this.executor = new DefaultDependentTasksExecutor<String, String>(new DefaultExecutionEngine<String, String>(executorService), newTaskProvider(tasks));
 		this.tableNameProvider = newTableNameProvider();
 		buildGraph(tasks);		
 	}
@@ -106,31 +107,33 @@ public class MigrationTasksExecutor {
 		this.executor.execute(ExecutionBehavior.RETRY_ONCE_TERMINATING);
 	}
 
-	private TaskProvider<String> newTaskProvider(MigrationTasks tasks) {
+	private TaskProvider<String, String> newTaskProvider(MigrationTasks tasks) {
 		return new DataMigrationTaskProvider(tasks);
 	}
 
-	private class DataMigrationTaskProvider implements TaskProvider<String> {
+	private class DataMigrationTaskProvider implements TaskProvider<String, String> {
 
 		public DataMigrationTaskProvider(MigrationTasks tasks) {
 
 		}
 
-		public TaskProvider.Task provid(String id) {
+		public Task<String, String> provideTask(String id) {
 			return new DummyTask(id);
 		}		
 	}
 
-	private static class DummyTask extends Task {
-		private String taskId;
+	private static class DummyTask extends Task<String, String> {
 
-		public DummyTask(String id) {
-			this.taskId = id;
+		private static final long serialVersionUID = 1L;
+
+		public DummyTask(final String id) {
+			setId(id);
 		}
 
 		@Override
-		public void execute() {
-			logger.info("Executing Task {}", taskId);
+		public String execute() {
+			logger.info("Executing Task {}", getId());
+			return getId();
 		}		
 	}
 }

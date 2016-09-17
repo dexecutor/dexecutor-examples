@@ -8,8 +8,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import com.github.dexecutor.core.support.ThreadPoolUtil;
 import com.github.dexecutor.executor.MigrationTasksExecutor;
-import com.github.dexecutor.executor.support.ThreadPoolUtil;
 import com.github.dexecutor.oxm.MigrationTasks;
 
 public class MigrationApp {
