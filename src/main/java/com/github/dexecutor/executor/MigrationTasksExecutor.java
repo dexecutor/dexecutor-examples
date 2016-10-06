@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.github.dexecutor.core.DefaultDependentTasksExecutor;
 import com.github.dexecutor.core.DefaultExecutionEngine;
 import com.github.dexecutor.core.DependentTasksExecutor;
-import com.github.dexecutor.core.DependentTasksExecutor.ExecutionBehavior;
+import com.github.dexecutor.core.ExecutionConfig;
 import com.github.dexecutor.core.task.Task;
 import com.github.dexecutor.core.task.TaskProvider;
 import com.github.dexecutor.oxm.MigrationTask;
@@ -104,7 +104,7 @@ public class MigrationTasksExecutor {
 	}
 
 	public void execute(boolean stopOnError) {
-		this.executor.execute(ExecutionBehavior.RETRY_ONCE_TERMINATING);
+		this.executor.execute(new ExecutionConfig().immediateRetrying(1));
 	}
 
 	private TaskProvider<String, String> newTaskProvider(MigrationTasks tasks) {
