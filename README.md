@@ -1,13 +1,13 @@
 # Dexecutor Sample Application
 
-A sample application demonstrating how Dexecutor can be used to simplify and improve the performance of Data Migration process in an application.
+A sample application demonstrating how [Dexecutor](https://github.com/dexecutor/dexecutor-core) can be used to simplify and improve the performance of Data Migration process in an application.
 
 
 Lets take an use case where in an application update form version x to x+1 requires tons of data base operations. Normally such operations are performed using migration scripts, executing a series of instructions, to bring the application to desired state.
 
 Normally each script is executed sequentially, to improve the performance we can parallelize the execution of such scripts. However that would put us in trouble if parallel execution is not done properly. For example lets say, script1 creates a table X, and script2 uses that table, in this case these two tasks has to be executed sequentially.
 
-Dexecutore can be used in these cases easily by adding an Algorithmic logic which builds the graph based on table names. 
+[Dexecutor](https://github.com/dexecutor/dexecutor-core) can be used in these cases easily by adding an Algorithmic logic which builds the graph based on table names. 
 
     Script 1 ==> operates on Tables t1 and t2 and takes 5 min
     Script 2 ==> operates on Tables t1 and t3 and takes 5 min
