@@ -35,7 +35,7 @@ Normally These scripts are executed sequentially
       V
     Script 6
      
-In this case total execution time would be **30 minutes**, However if we could parallelize the script execution make sure scripts are executed in right sequence and order, then we could save time, decreasing the total execution time just **10 minutes**.
+In this case total execution time would be **30 minutes**, However if we could parallelize the script execution, make sure scripts are executed in right sequence and order, then we could save time, decreasing the total execution time to just **10 minutes**.
 
 
 
@@ -121,11 +121,11 @@ Based on the Table names in tasks, the built graph would be
 
 [![dexecutor-graph.png](https://s6.postimg.org/5vytnb28h/dexecutor_graph.png)](https://postimg.org/image/g618mjs3x/)
 
-As can be seen here _task base1_, _task base3_ and _task base 4_ runs in parallel and once, one of them finishes its children are executed for example if _task base1_ is finished its children _task base2_ and _task app3-1_ are scheduled and so on.
+As can be seen here _task base1_, _task base3_ and _task base 4_ runs in parallel and once, one of them finishes its children are executed, for example if _task base1_ is finished then its children _task base2_ and _task app3-1_ are executed and so on.
 
-Notice that for _task app2-4_ to start _task app1-4_ and _task app2-1_ must finish, similarly for _task app3-2_ to start _task app3-1_ and _task app2-4_ must finish.
+Notice that for _task app2-4_ to start, _task app1-4_ and _task app2-1_ must finish, similarly for _task app3-2_ to start, _task app3-1_ and _task app2-4_ must finish.
 
-This mean we need an algorithm to build such kind of graph and that is what Class [MigrationTasksExecutor](https://github.com/dexecutor/dexecutor-examples/blob/master/src/main/java/com/github/dexecutor/executor/MigrationTasksExecutor.java) does.
+This means we need an algorithm to build such kind of graph and that is what Class [MigrationTasksExecutor](https://github.com/dexecutor/dexecutor-examples/blob/master/src/main/java/com/github/dexecutor/executor/MigrationTasksExecutor.java) does.
 
 Further we need an Ultra light, Ultra fast library to extract table names out of SQLs, for this purpose we will use [sql-table-name-parser](https://github.com/mnadeem/sql-table-name-parser)
 
@@ -262,5 +262,6 @@ app3-4[app3-3]
  
  ```
  
+ Note that exeuction logic does not executes the SQLs as it is out of scope for this sample application.
  
  
