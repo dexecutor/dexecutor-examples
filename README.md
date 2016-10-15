@@ -121,5 +121,21 @@ Based on the Table names in tasks, the built graph would be
 
 [![dexecutor-graph.png](https://s6.postimg.org/5vytnb28h/dexecutor_graph.png)](https://postimg.org/image/g618mjs3x/)
 
+As can be seen here _task base1_, _task base3_ and _task base 4_ runs in parallel and once, one of them finishes its children are executed for example if _task base1_ is finished its children _task base2_ and _task app3-1_ are scheduled and so on.
+
+Notice that for _task app2-4_ to start _task app1-4_ and _task app2-1_ must finish, similarly for _task app3-2_ to start _task app3-1_ and _task app2-4_ must finish.
+
+This mean we need an algorithm to build such kind of graph and that is what Class `MigrationTasksExecutor` does.
+
+Further we need an Ultra light, Ultra fast library to extract table names out of SQLs, for this purpose we will use [sql-table-name-parser](https://github.com/mnadeem/sql-table-name-parser)
+
+ ```
+       <dependency>
+		<groupId>com.github.mnadeem</groupId>
+		<artifactId>sql-table-name-parser</artifactId>
+		<version>0.0.2</version>
+	  </dependency>
+	  
+ ```
  
  
