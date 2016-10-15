@@ -48,7 +48,7 @@ public class MigrationTasksExecutor {
 		return new CompositeTableNameProvider(newProviders);
 	}
 
-	private void buildGraph(MigrationTasks tasks) {
+	private void buildGraph(final MigrationTasks tasks) {
 		for (MigrationTask migrationTask : tasks.getTasks()) {
 			List<String> tables = tables(migrationTask);
 			constructTaskNode(migrationTask, tables);
@@ -56,7 +56,7 @@ public class MigrationTasksExecutor {
 		}
 	}
 
-	private void constructTaskNode(MigrationTask migrationTask, List<String> tables) {
+	private void constructTaskNode(final MigrationTask migrationTask, final List<String> tables) {
 		List<String> taskIds = dependentTaskIds(migrationTask, tables);
 		if (isDependentTask(taskIds)) {
 			processDependentTasks(taskIds, migrationTask.getTaskId());
@@ -65,7 +65,7 @@ public class MigrationTasksExecutor {
 		}
 	}
 
-	private List<String> dependentTaskIds(MigrationTask migrationTask, List<String> tables) {
+	private List<String> dependentTaskIds(final MigrationTask migrationTask, final List<String> tables) {
 		List<String> result = new ArrayList<String>();
 
 		for (String table : tables) {
@@ -120,17 +120,17 @@ public class MigrationTasksExecutor {
 		System.err.println(wr.toString());
 	}
 
-	private TaskProvider<String, String> newTaskProvider(MigrationTasks tasks) {
+	private TaskProvider<String, String> newTaskProvider(final MigrationTasks tasks) {
 		return new DataMigrationTaskProvider(tasks);
 	}
 
 	private class DataMigrationTaskProvider implements TaskProvider<String, String> {
 
-		public DataMigrationTaskProvider(MigrationTasks tasks) {
+		public DataMigrationTaskProvider(final MigrationTasks tasks) {
 
 		}
 
-		public Task<String, String> provideTask(String id) {
+		public Task<String, String> provideTask(final String id) {
 			return new DummyTask(id);
 		}		
 	}
