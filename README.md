@@ -49,7 +49,7 @@ In this case total execution time would be **30 minutes**, However if we could p
     +----------+   +----------+     +----------+        +----------+
 
 
-For simplicity lets assume that tasks represented as follows
+For simplicity lets assume that tasks are represented as follows
   
   ```
   
@@ -125,7 +125,7 @@ As can be seen here _task base1_, _task base3_ and _task base 4_ runs in paralle
 
 Notice that for _task app2-4_ to start _task app1-4_ and _task app2-1_ must finish, similarly for _task app3-2_ to start _task app3-1_ and _task app2-4_ must finish.
 
-This mean we need an algorithm to build such kind of graph and that is what Class `MigrationTasksExecutor` does.
+This mean we need an algorithm to build such kind of graph and that is what Class [MigrationTasksExecutor](https://github.com/dexecutor/dexecutor-examples/blob/master/src/main/java/com/github/dexecutor/executor/MigrationTasksExecutor.java) does.
 
 Further we need an Ultra light, Ultra fast library to extract table names out of SQLs, for this purpose we will use [sql-table-name-parser](https://github.com/mnadeem/sql-table-name-parser)
 
