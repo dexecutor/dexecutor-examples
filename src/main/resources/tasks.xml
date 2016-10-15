@@ -14,7 +14,7 @@
 		<task>select * from table5, table6 where xyx= 1;</task>
 	</task>
 	<task module="baseApp" taskId="base-4" version="1.0.2" release="1">
-		<task>select * from table1000, table1111 where xyx= 1;</task>
+		<task>select * from table10, table11 where xyx= 1;</task>
 	</task>
 
 	<task module="app1" taskId="app1-1" version="1.0.2" release="2">
@@ -39,21 +39,21 @@
 	</task>
 
 	<task module="app2" taskId="app2-3" version="1.0.2" release="3">
-		<task>select * from table15, table20 where xyx= 1</task>
+		<task>select * from table5, table20 where xyx= 1</task>
 	</task>
 	<task module="app2" taskId="app2-4" version="1.0.2" release="3">
 		<task>select * from table7, table11 where xyx= 1</task>
 	</task>
 
 	<task module="app3" taskId="app3-1" version="1.0.2" release="3">
-		<task>select * from table112, table116 where xyx= 1;</task>
+		<task>select * from table2, table16 where xyx= 1;</task>
 	</task>
 	<task module="app3" taskId="app3-2" version="1.0.2" release="3">
-		<task>select * from table2, table111 where xyx= 1;</task>
+		<task>select * from table2, table11 where xyx= 1;</task>
 	</task>
 
 	<task module="app3" taskId="app3-3" version="1.0.2" release="3">
-		<task>select * from table100, table111 where xyx= 1;</task>
+		<task>select * from table10, table11 where xyx= 1;</task>
 	</task>
 	<task module="app3" taskId="app3-4" version="1.0.2" release="3">
 		<task>select * from table10, table11 where xyx= 1;</task>
