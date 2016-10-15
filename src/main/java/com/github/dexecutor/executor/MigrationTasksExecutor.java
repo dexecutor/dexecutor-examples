@@ -1,5 +1,6 @@
 package com.github.dexecutor.executor;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,10 +10,12 @@ import java.util.concurrent.ExecutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.dexecutor.core.DefaultDependentTasksExecutor;
+import com.github.dexecutor.core.DefaultDexecutor;
 import com.github.dexecutor.core.DefaultExecutionEngine;
-import com.github.dexecutor.core.DependentTasksExecutor;
+import com.github.dexecutor.core.Dexecutor;
+import com.github.dexecutor.core.DexecutorConfig;
 import com.github.dexecutor.core.ExecutionConfig;
+import com.github.dexecutor.core.graph.MergedLevelOrderTraversar;
 import com.github.dexecutor.core.task.Task;
 import com.github.dexecutor.core.task.TaskProvider;
 import com.github.dexecutor.oxm.MigrationTask;
@@ -26,12 +29,15 @@ public class MigrationTasksExecutor {
 
 	private static final Logger logger = LoggerFactory.getLogger(MigrationTasksExecutor.class);
 
-	private final DependentTasksExecutor<String> executor;
-	private final Map<String, List<String>> tableToTasksMap = new LinkedHashMap<String, List<String>>();
+	private final Dexecutor<String> executor;
 	private TableNameProvider tableNameProvider;
+	private final Map<String, List<String>> tableToTasksMap = new LinkedHashMap<String, List<String>>();
 
 	public MigrationTasksExecutor(final MigrationTasks tasks, final ExecutorService executorService) {
-		this.executor = new DefaultDependentTasksExecutor<String, String>(new DefaultExecutionEngine<String, String>(executorService), newTaskProvider(tasks));
+		DexecutorConfig<String, String> config = new DexecutorConfig<>(new DefaultExecutionEngine<String, String>(executorService), newTaskProvider(tasks));
+		config.setTraversar(new MergedLevelOrderTraversar<String, String>());
+		this.executor = new DefaultDexecutor<String, String>(config);
+		
 		this.tableNameProvider = newTableNameProvider();
 		buildGraph(tasks);		
 	}
@@ -103,8 +109,15 @@ public class MigrationTasksExecutor {
 		return this.tableNameProvider.provideTableNames(migrationTask.getTask());
 	}
 
-	public void execute(boolean stopOnError) {
+	public void execute() {
+		printGraph();
 		this.executor.execute(new ExecutionConfig().immediateRetrying(1));
+	}
+
+	private void printGraph() {
+		StringWriter wr = new StringWriter();
+		this.executor.print(wr);
+		System.err.println(wr.toString());
 	}
 
 	private TaskProvider<String, String> newTaskProvider(MigrationTasks tasks) {

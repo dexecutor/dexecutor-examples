@@ -18,7 +18,7 @@ public class MigrationApp {
 		MigrationTasks tasks = buildTasks();
 		ExecutorService executorService = buildExecutor();
 
-		new MigrationTasksExecutor(tasks, executorService).execute(true);
+		new MigrationTasksExecutor(tasks, executorService).execute();
 		
 		executorService.shutdown();
 	}
