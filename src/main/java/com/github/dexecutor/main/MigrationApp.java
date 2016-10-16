@@ -3,6 +3,7 @@ package com.github.dexecutor.main;
 import java.io.InputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -15,12 +16,14 @@ import com.github.dexecutor.oxm.MigrationTasks;
 public class MigrationApp {
 
 	public static void main(String[] args) throws JAXBException {
-		MigrationTasks tasks = buildTasks();
-		ExecutorService executorService = buildExecutor();
+		ExecutorService executor = buildExecutor();
+		new MigrationTasksExecutor(buildTasks(), executor).execute();		
+		awaitTermination(executor);
+	}
 
-		new MigrationTasksExecutor(tasks, executorService).execute();
-		
-		executorService.shutdown();
+	private static ExecutorService buildExecutor() {
+		ExecutorService executorService = Executors.newFixedThreadPool(ThreadPoolUtil.ioIntesivePoolSize());
+		return executorService;
 	}
 
 	private static MigrationTasks buildTasks() throws JAXBException {
@@ -28,12 +31,15 @@ public class MigrationApp {
 		JAXBContext jaxbContext = JAXBContext.newInstance(MigrationTasks.class);
 
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		MigrationTasks tasks = (MigrationTasks) jaxbUnmarshaller.unmarshal(file);
-		return tasks;
+		return (MigrationTasks) jaxbUnmarshaller.unmarshal(file);
 	}
 
-	private static ExecutorService buildExecutor() {
-		ExecutorService executorService = Executors.newFixedThreadPool(ThreadPoolUtil.ioIntesivePoolSize());
-		return executorService;
+	private static void awaitTermination(final ExecutorService executor) {
+		try {
+			executor.shutdown();
+			executor.awaitTermination(1, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+
+		}
 	}
 }
