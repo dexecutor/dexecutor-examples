@@ -29,17 +29,20 @@ public class MigrationTasksExecutor {
 
 	private static final Logger logger = LoggerFactory.getLogger(MigrationTasksExecutor.class);
 
-	private final Dexecutor<String> executor;
+	private final Dexecutor<String> dexecutor;
 	private TableNameProvider tableNameProvider;
 	private final Map<String, List<String>> tableToTasksMap = new LinkedHashMap<String, List<String>>();
 
 	public MigrationTasksExecutor(final MigrationTasks tasks, final ExecutorService executorService) {
-		DexecutorConfig<String, String> config = new DexecutorConfig<>(new DefaultExecutionEngine<String, String>(executorService), newTaskProvider(tasks));
-		config.setTraversar(new MergedLevelOrderTraversar<String, String>());
-		this.executor = new DefaultDexecutor<String, String>(config);
-		
+		this.dexecutor = newDexecutor(tasks, executorService);		
 		this.tableNameProvider = newTableNameProvider();
 		buildGraph(tasks);		
+	}
+
+	private Dexecutor<String> newDexecutor(final MigrationTasks tasks, final ExecutorService executorService) {
+		DexecutorConfig<String, String> config = new DexecutorConfig<>(new DefaultExecutionEngine<String, String>(executorService), newTaskProvider(tasks));
+		config.setTraversar(new MergedLevelOrderTraversar<String, String>());
+		return new DefaultDexecutor<String, String>(config);
 	}
  
 	private TableNameProvider newTableNameProvider() {
@@ -61,7 +64,7 @@ public class MigrationTasksExecutor {
 		if (isDependentTask(taskIds)) {
 			processDependentTasks(taskIds, migrationTask.getTaskId());
 		} else {
-			this.executor.addIndependent(migrationTask.getTaskId());
+			this.dexecutor.addIndependent(migrationTask.getTaskId());
 		}
 	}
 
@@ -85,7 +88,7 @@ public class MigrationTasksExecutor {
 
 	private void processDependentTasks(final List<String> dependentTaskIds, final String currentTaskId) {
 		for (String dependentTaskId : dependentTaskIds) {
-			this.executor.addDependency(dependentTaskId, currentTaskId);
+			this.dexecutor.addDependency(dependentTaskId, currentTaskId);
 		}
 	}
 
@@ -111,12 +114,12 @@ public class MigrationTasksExecutor {
 
 	public void execute() {
 		printGraph();
-		this.executor.execute(new ExecutionConfig().immediateRetrying(1));
+		this.dexecutor.execute(new ExecutionConfig().immediateRetrying(1));
 	}
 
 	private void printGraph() {
 		StringWriter wr = new StringWriter();
-		this.executor.print(wr);
+		this.dexecutor.print(wr);
 		System.err.println(wr.toString());
 	}
 
