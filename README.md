@@ -262,6 +262,8 @@ app3-4[app3-3]
  
  ```
  
+ Refer [this blog](https://reachmnadeem.wordpress.com/2016/10/16/take-migration-process-to-next-level-using-dexecutor/) for more detail.
+ 
  Note that exeuction logic does not executes the SQLs as it is out of scope for this sample application.
  
  
