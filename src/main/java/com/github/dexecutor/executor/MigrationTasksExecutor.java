@@ -1,6 +1,5 @@
 package com.github.dexecutor.executor;
 
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,11 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.dexecutor.core.DefaultDexecutor;
+import com.github.dexecutor.core.DefaultDexecutorState;
 import com.github.dexecutor.core.DefaultExecutionEngine;
 import com.github.dexecutor.core.Dexecutor;
 import com.github.dexecutor.core.DexecutorConfig;
+import com.github.dexecutor.core.DexecutorState;
 import com.github.dexecutor.core.ExecutionConfig;
-import com.github.dexecutor.core.graph.MergedLevelOrderTraversar;
+import com.github.dexecutor.core.graph.LevelOrderTraversar;
+import com.github.dexecutor.core.graph.StringTraversarAction;
+import com.github.dexecutor.core.graph.TraversarAction;
 import com.github.dexecutor.core.task.Task;
 import com.github.dexecutor.core.task.TaskProvider;
 import com.github.dexecutor.oxm.MigrationTask;
@@ -29,7 +32,7 @@ public class MigrationTasksExecutor {
 
 	private static final Logger logger = LoggerFactory.getLogger(MigrationTasksExecutor.class);
 
-	private final Dexecutor<String> dexecutor;
+	private final Dexecutor<String, String> dexecutor;
 	private TableNameProvider tableNameProvider;
 	private final Map<String, List<String>> tableToTasksMap = new LinkedHashMap<String, List<String>>();
 
@@ -39,9 +42,10 @@ public class MigrationTasksExecutor {
 		buildGraph(tasks);		
 	}
 
-	private Dexecutor<String> newDexecutor(final MigrationTasks tasks, final ExecutorService executorService) {
-		DexecutorConfig<String, String> config = new DexecutorConfig<>(new DefaultExecutionEngine<String, String>(executorService), newTaskProvider(tasks));
-		config.setTraversar(new MergedLevelOrderTraversar<String, String>());
+	private Dexecutor<String, String> newDexecutor(final MigrationTasks tasks, final ExecutorService executorService) {
+		DexecutorState<String, String> dexecutorState = new DefaultDexecutorState<>();
+		DexecutorConfig<String, String> config = new DexecutorConfig<>(new DefaultExecutionEngine<String, String>(dexecutorState, executorService), newTaskProvider(tasks));
+		config.setDexecutorState(dexecutorState);
 		return new DefaultDexecutor<String, String>(config);
 	}
  
@@ -118,9 +122,10 @@ public class MigrationTasksExecutor {
 	}
 
 	private void printGraph() {
-		StringWriter wr = new StringWriter();
-		this.dexecutor.print(wr);
-		System.err.println(wr.toString());
+		StringBuilder builder = new  StringBuilder();
+		TraversarAction<String, String> action = new StringTraversarAction<>(builder);
+		this.dexecutor.print(new LevelOrderTraversar<String, String>(), action);
+		System.err.println(builder.toString());
 	}
 
 	private TaskProvider<String, String> newTaskProvider(final MigrationTasks tasks) {
