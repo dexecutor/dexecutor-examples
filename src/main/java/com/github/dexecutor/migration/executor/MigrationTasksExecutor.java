@@ -26,7 +26,7 @@ import com.github.dexecutor.migration.oxm.MigrationTasks;
 import com.github.dexecutor.migration.parser.CompositeTableNameProvider;
 import com.github.dexecutor.migration.parser.SQLTableNameProvider;
 import com.github.dexecutor.migration.parser.TableNameProvider;
-import com.github.dexecutor.migration.support.Lists;
+import com.github.dexecutor.support.Lists;
 
 public class MigrationTasksExecutor {
 

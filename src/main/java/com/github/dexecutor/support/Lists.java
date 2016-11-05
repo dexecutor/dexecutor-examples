@@ -1,4 +1,4 @@
-package com.github.dexecutor.migration.support;
+package com.github.dexecutor.support;
 
 import java.util.List;
 
