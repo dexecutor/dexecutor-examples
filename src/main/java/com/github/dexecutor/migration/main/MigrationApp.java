@@ -1,4 +1,4 @@
-package com.github.dexecutor.main;
+package com.github.dexecutor.migration.main;
 
 import java.io.InputStream;
 import java.util.concurrent.ExecutorService;
@@ -10,8 +10,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import com.github.dexecutor.core.support.ThreadPoolUtil;
-import com.github.dexecutor.executor.MigrationTasksExecutor;
-import com.github.dexecutor.oxm.MigrationTasks;
+import com.github.dexecutor.migration.executor.MigrationTasksExecutor;
+import com.github.dexecutor.migration.oxm.MigrationTasks;
 
 public class MigrationApp {
 

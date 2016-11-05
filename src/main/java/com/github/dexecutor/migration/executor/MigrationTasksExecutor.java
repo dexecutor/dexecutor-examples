@@ -1,4 +1,4 @@
-package com.github.dexecutor.executor;
+package com.github.dexecutor.migration.executor;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -21,12 +21,12 @@ import com.github.dexecutor.core.graph.StringTraversarAction;
 import com.github.dexecutor.core.graph.TraversarAction;
 import com.github.dexecutor.core.task.Task;
 import com.github.dexecutor.core.task.TaskProvider;
-import com.github.dexecutor.oxm.MigrationTask;
-import com.github.dexecutor.oxm.MigrationTasks;
-import com.github.dexecutor.parser.CompositeTableNameProvider;
-import com.github.dexecutor.parser.SQLTableNameProvider;
-import com.github.dexecutor.parser.TableNameProvider;
-import com.github.dexecutor.support.Lists;
+import com.github.dexecutor.migration.oxm.MigrationTask;
+import com.github.dexecutor.migration.oxm.MigrationTasks;
+import com.github.dexecutor.migration.parser.CompositeTableNameProvider;
+import com.github.dexecutor.migration.parser.SQLTableNameProvider;
+import com.github.dexecutor.migration.parser.TableNameProvider;
+import com.github.dexecutor.migration.support.Lists;
 
 public class MigrationTasksExecutor {
 

@@ -1,4 +1,4 @@
-package com.github.dexecutor.parser;
+package com.github.dexecutor.migration.parser;
 
 import java.util.ArrayList;
 import java.util.Collection;
