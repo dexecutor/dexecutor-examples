@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author nmohammad
+ * @author Nadeem Mohammamd
  *
  */
 package com.github.dexecutor.migration.parser;
