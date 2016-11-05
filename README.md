@@ -1,5 +1,6 @@
 # Dexecutor Sample Application
 
+## Migration Application
 A sample application demonstrating how [Dexecutor](https://github.com/dexecutor/dexecutor-core) can be used to simplify and improve the performance of Data Migration process in an application.
 
 
