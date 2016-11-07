@@ -19,7 +19,7 @@
 		<appender-ref ref="CONSOLE" />
 	</logger>
 
-	<logger name="com.github" level="debug"
+	<logger name="com.github" level="info"
 		additivity="false">
 		<appender-ref ref="CONSOLE" />
 	</logger>
