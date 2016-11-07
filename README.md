@@ -267,4 +267,24 @@ app3-4[app3-3]
  
  Note that exeuction logic does not executes the SQLs as it is out of scope for this sample application.
  
+ ## Workflow Example
+ 
+ [![dexecutor-workflow-example.png](https://s6.postimg.org/ua0s5xqtt/dexecutor_workflow_example.png)](https://postimg.org/image/a2ncdmtcd/)
+ 
+ Output if TaskTwo result is false
+ ```
+Executing TaskOne , result : true
+Executing TaskTwo , result : false
+Executing TaskFive , result : true
+Executing TaskSix , result : true
+Executing TaskSeven , result : true
+ ```
+  Output if TaskTwo result is true
+```
+Executing TaskOne , result : true
+Executing TaskTwo , result : true
+Executing TaskFour , result : true
+Executing TaskThree , result : true
+Executing TaskSeven , result : true
+```
  
