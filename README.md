@@ -1,6 +1,6 @@
 # Dexecutor Sample Applications
 
-## 1 Migration Application
+## 1. Migration Application
 A sample application demonstrating how [Dexecutor](https://github.com/dexecutor/dexecutor-core) can be used to simplify and improve the performance of Data Migration process in an application.
 
 
@@ -267,7 +267,7 @@ app3-4[app3-3]
  
  Note that exeuction logic does not executes the SQLs as it is out of scope for this sample application.
  
-## 2 Workflow Example
+## 2. Workflow Example
 
 Just execute [WorkFlowApplication](https://github.com/dexecutor/dexecutor-examples/blob/master/src/main/java/com/github/dexecutor/flow/WorkFlowApplication.java) .
  
