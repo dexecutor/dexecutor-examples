@@ -1,4 +1,4 @@
-# Dexecutor Sample Application
+# Dexecutor Sample Applications
 
 ## Migration Application
 A sample application demonstrating how [Dexecutor](https://github.com/dexecutor/dexecutor-core) can be used to simplify and improve the performance of Data Migration process in an application.
@@ -267,11 +267,13 @@ app3-4[app3-3]
  
  Note that exeuction logic does not executes the SQLs as it is out of scope for this sample application.
  
- ## Workflow Example
+## Workflow Example
+
+Just execute [WorkFlowApplication](https://github.com/dexecutor/dexecutor-examples/blob/master/src/main/java/com/github/dexecutor/flow/WorkFlowApplication.java) .
  
  [![dexecutor-workflow-example.png](https://s6.postimg.org/ua0s5xqtt/dexecutor_workflow_example.png)](https://postimg.org/image/a2ncdmtcd/)
  
- Output if TaskTwo result is false
+#### Output if TaskTwo result is false
  ```
 Executing TaskOne , result : true
 Executing TaskTwo , result : false
@@ -279,7 +281,7 @@ Executing TaskFive , result : true
 Executing TaskSix , result : true
 Executing TaskSeven , result : true
  ```
-  Output if TaskTwo result is true
+#### Output if TaskTwo result is true
 ```
 Executing TaskOne , result : true
 Executing TaskTwo , result : true
