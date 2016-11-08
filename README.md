@@ -271,7 +271,7 @@ app3-4[app3-3]
 
 Just execute [WorkFlowApplication](https://github.com/dexecutor/dexecutor-examples/blob/master/src/main/java/com/github/dexecutor/flow/WorkFlowApplication.java) .
  
- [![dexecutor-workflow-example.png](https://s6.postimg.org/ua0s5xqtt/dexecutor_workflow_example.png)](https://postimg.org/image/a2ncdmtcd/)
+ [![dexecutor-workflow-example.png](https://s6.postimg.org/7dny9uyhd/dexecutor_workflow_example.png)](https://postimg.org/image/3u20k1vrh/)
  
 #### Output if TaskTwo result is false
  ```
