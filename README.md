@@ -289,4 +289,5 @@ Executing TaskFour , result : true
 Executing TaskThree , result : true
 Executing TaskSeven , result : true
 ```
+For more details refer this [blog post](https://reachmnadeem.wordpress.com/2016/11/08/lightweight-workflow-like-execution-using-dexecutor/)
  
