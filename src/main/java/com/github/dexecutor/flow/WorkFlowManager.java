@@ -17,13 +17,17 @@ import com.github.dexecutor.flow.task.WorkFlowTaskProvider;
 
 public class WorkFlowManager {
 
-	private Dexecutor<String, Boolean> dexecutor;
+	private final Dexecutor<String, Boolean> dexecutor;
 
 	public WorkFlowManager(ExecutorService executorService) {
-		DexecutorConfig<String, Boolean> config = new DexecutorConfig<>(executorService, new WorkFlowTaskProvider());
-		this.dexecutor = new DefaultDexecutor<>(config);
+		this.dexecutor = buildDexecutor(executorService);
 
 		buildGraph();
+	}
+
+	private Dexecutor<String, Boolean> buildDexecutor(final ExecutorService executorService) {
+		DexecutorConfig<String, Boolean> config = new DexecutorConfig<>(executorService, new WorkFlowTaskProvider());
+		return new DefaultDexecutor<>(config);
 	}
 
 	private void buildGraph() {
