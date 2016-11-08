@@ -120,7 +120,7 @@ For simplicity lets assume that tasks are represented as follows
 
 Based on the Table names in tasks, the built graph would be
 
-[![dexecutor-graph.png](https://s6.postimg.org/5vytnb28h/dexecutor_graph.png)](https://postimg.org/image/g618mjs3x/)
+[![dexecutor-graph.png](https://s6.postimg.org/tbkf3ndht/dexecutor_graph.png)](https://postimg.org/image/u137g0e19/)
 
 As can be seen here _task base1_, _task base3_ and _task base 4_ runs in parallel and once, one of them finishes its children are executed, for example if _task base1_ is finished then its children _task base2_ and _task app3-1_ are executed and so on.
 
