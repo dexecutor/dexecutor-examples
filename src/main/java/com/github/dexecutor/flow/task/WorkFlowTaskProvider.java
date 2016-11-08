@@ -8,7 +8,7 @@ import com.github.dexecutor.core.task.TaskProvider;
 
 public class WorkFlowTaskProvider implements TaskProvider<String, Boolean> {
 
-	private Map<String, Task<String, Boolean>> tasks = new HashMap<String, Task<String, Boolean>>() {
+	private final Map<String, Task<String, Boolean>> tasks = new HashMap<String, Task<String, Boolean>>() {
 
 		private static final long serialVersionUID = 1L;
 		{
@@ -19,12 +19,11 @@ public class WorkFlowTaskProvider implements TaskProvider<String, Boolean> {
 			put(TaskFive.NAME, new TaskFive());
 			put(TaskSix.NAME, new TaskSix());
 			put(TaskSeven.NAME, new TaskSeven());
-
 		}
 	};
 
 	@Override
-	public Task<String, Boolean> provideTask(String id) {
-		return tasks.get(id);
+	public Task<String, Boolean> provideTask(final String id) {
+		return this.tasks.get(id);
 	}
 }
