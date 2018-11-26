@@ -120,7 +120,7 @@ For simplicity lets assume that tasks are represented as follows
 
 Based on the Table names in tasks, the built graph would be
 
-[![dexecutor-graph.png](https://s6.postimg.org/tbkf3ndht/dexecutor_graph.png)](https://postimg.org/image/u137g0e19/)
+[![dexecutor-graph.png](https://i.postimg.cc/brK6qKFc/dexecutor-graph.png)](https://i.postimg.cc/brK6qKFc/dexecutor-graph.png)
 
 As can be seen here _task base1_, _task base3_ and _task base 4_ runs in parallel and once, one of them finishes its children are executed, for example if _task base1_ is finished then its children _task base2_ and _task app3-1_ are executed and so on.
 
@@ -271,7 +271,7 @@ app3-4[app3-3]
 
 Just execute [WorkFlowApplication](https://github.com/dexecutor/dexecutor-examples/blob/master/src/main/java/com/github/dexecutor/flow/WorkFlowApplication.java) .
  
- [![dexecutor-workflow-example.png](https://s6.postimg.org/7dny9uyhd/dexecutor_workflow_example.png)](https://postimg.org/image/3u20k1vrh/)
+ [![dexecutor-workflow-example.png](https://i.postimg.cc/NF3wZC6L/dexecutor-workflow-example.png)]https://i.postimg.cc/NF3wZC6L/dexecutor-workflow-example.png)
  
 #### Output if TaskTwo result is false
  ```
